@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeItem, updateQuantity } from "./CartSlice";
 import "./CartItem.css";
 
-const CartItem = ({ onContinueShopping, total ,setTotal }) => {
+const CartItem = ({ onContinueShopping, total, setTotal }) => {
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ const CartItem = ({ onContinueShopping, total ,setTotal }) => {
     return total.toFixed(2);
   };
   const handleCheckoutShopping = (e) => {
-    alert("Functionality to be added for future reference");
+    alert("Comming Soon");
   };
   const handleContinueShopping = (e) => {
     onContinueShopping(e);
@@ -107,7 +107,9 @@ const CartItem = ({ onContinueShopping, total ,setTotal }) => {
         <br />
         <button
           className="get-started-button1"
-          onClick={handleCheckoutShopping}
+          onClick={() => {
+            handleCheckoutShopping();
+          }}
         >
           Checkout
         </button>
