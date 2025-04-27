@@ -17,7 +17,7 @@ const CartItem = ({ onContinueShopping, total, setTotal }) => {
     return total.toFixed(2);
   };
   const handleCheckoutShopping = (e) => {
-    alert("Comming Soon");
+    alert("Coming Soon");
   };
   const handleContinueShopping = (e) => {
     onContinueShopping(e);
@@ -109,9 +109,7 @@ const CartItem = ({ onContinueShopping, total, setTotal }) => {
         <button
           className="get-started-button1"
           onClick={() => {
-
             handleCheckoutShopping();
-          
           }}
         >
           Checkout
