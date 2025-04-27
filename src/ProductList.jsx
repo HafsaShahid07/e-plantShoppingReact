@@ -431,7 +431,11 @@ function ProductList({ onHomeClick }) {
           ))}
         </div>
       ) : (
-        <CartItem onContinueShopping={handleContinueShopping} setTotal={setTotal} />
+        <CartItem
+          onContinueShopping={handleContinueShopping}
+          total={total}
+          setTotal={setTotal}
+        />
       )}
     </div>
   );
