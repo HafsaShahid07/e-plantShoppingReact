@@ -54,6 +54,7 @@ const CartItem = ({ onContinueShopping, total, setTotal }) => {
     <div className="cart-container">
       <h2 style={{ color: "black" }}>
         Total Cart Amount: ${calculateTotalAmount()}
+        <br />
         Total Items:{total}
       </h2>
       <div>
@@ -108,7 +109,7 @@ const CartItem = ({ onContinueShopping, total, setTotal }) => {
         <button
           className="get-started-button1"
           onClick={() => {
-            
+
             handleCheckoutShopping();
           
           }}
