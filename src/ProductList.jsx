@@ -3,11 +3,22 @@ import "./ProductList.css";
 import CartItem from "./CartItem";
 import { useDispatch } from "react-redux";
 import { addItem } from "./CartSlice";
+import { useSelector } from "react-redux";
+// import {calculateTotalAmount} from "./CartItem"
 function ProductList({ onHomeClick }) {
+  const cart = useSelector((state) => state.cart.items);
+  const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
   const [addedToCart, setAddedToCart] = useState({});
   const [showCart, setShowCart] = useState(false);
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+  useEffect(() => {
+    const newAddedToCart = {};
+    cart.forEach((item) => {
+      newAddedToCart[item.name] = true;
+    });
+    setAddedToCart(newAddedToCart);
+  }, [cart]);
 
   const handleAddToCart = (product) => {
     dispatch(addItem(product));
@@ -16,6 +27,7 @@ function ProductList({ onHomeClick }) {
       [product.name]: true,
     }));
     added();
+    setTotal(total + 1);
   };
   const added = () => {
     alert("Item Added to Cart!");
@@ -329,7 +341,7 @@ function ProductList({ onHomeClick }) {
           <div>
             {" "}
             <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
-              <h1 className="cart">
+              <div style={{ position: "relative", display: "inline-block" }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 256 256"
@@ -344,13 +356,24 @@ function ProductList({ onHomeClick }) {
                     d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8"
                     fill="none"
                     stroke="#faf9f9"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     id="mainIconPathAttribute"
                   ></path>
                 </svg>
-              </h1>
+
+                <p
+                  style={{
+                    display: "inline",
+                    position: "absolute",
+                    top: "15px",
+                    right: "25px",
+                  }}
+                >
+                  {total}
+                </p>
+              </div>
             </a>
           </div>
         </div>
@@ -381,11 +404,25 @@ function ProductList({ onHomeClick }) {
                       {plant.cost}
                     </div>
                     {/*Similarly like the above plant.name show other details like description and cost*/}
+
                     <button
                       className="product-button"
                       onClick={() => handleAddToCart(plant)}
+                      disabled={addedToCart[plant.name]} // disable if added to cart
+                      style={{
+                        backgroundColor: addedToCart[plant.name]
+                          ? "black"
+                          : "#4CAF50",
+                        color: "white",
+                        cursor: addedToCart[plant.name]
+                          ? "not-allowed"
+                          : "pointer", // show not-allowed cursor
+                        opacity: addedToCart[plant.name] ? 0.7 : 1, // little visual dimming when disabled
+                      }}
                     >
-                      Add to Cart
+                      {addedToCart[plant.name]
+                        ? "Added to Cart"
+                        : "Add to Cart"}
                     </button>
                   </div>
                 ))}
@@ -394,7 +431,7 @@ function ProductList({ onHomeClick }) {
           ))}
         </div>
       ) : (
-        <CartItem onContinueShopping={handleContinueShopping} />
+        <CartItem onContinueShopping={handleContinueShopping} setTotal={setTotal} />
       )}
     </div>
   );
