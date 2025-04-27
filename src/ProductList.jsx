@@ -4,19 +4,22 @@ import CartItem from "./CartItem";
 import { useDispatch } from "react-redux";
 import { addItem } from "./CartSlice";
 function ProductList({ onHomeClick }) {
+  const dispatch = useDispatch();
   const [addedToCart, setAddedToCart] = useState({});
   const [showCart, setShowCart] = useState(false);
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
 
   const handleAddToCart = (product) => {
-    const dispatch = useDispatch();
     dispatch(addItem(product));
     setAddedToCart((prevState) => ({
       ...prevState,
       [product.name]: true,
     }));
+    added();
   };
-
+  const added = () => {
+    alert("Item Added to Cart!");
+  };
   const plantsArray = [
     {
       category: "Air Purifying Plants",
@@ -359,6 +362,7 @@ function ProductList({ onHomeClick }) {
               <h1>
                 <div>{category.category}</div>
               </h1>
+
               <div className="product-list">
                 {category.plants.map((plant, plantIndex) => (
                   <div className="product-card" key={plantIndex}>
@@ -368,6 +372,14 @@ function ProductList({ onHomeClick }) {
                       alt={plant.name}
                     />
                     <div className="product-title">{plant.name}</div>
+                    <div>
+                      <strong>Description: </strong>
+                      {plant.description}
+                    </div>
+                    <div>
+                      <strong>Cost: </strong>
+                      {plant.cost}
+                    </div>
                     {/*Similarly like the above plant.name show other details like description and cost*/}
                     <button
                       className="product-button"
