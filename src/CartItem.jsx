@@ -108,7 +108,9 @@ const CartItem = ({ onContinueShopping, total, setTotal }) => {
         <button
           className="get-started-button1"
           onClick={() => {
+            
             handleCheckoutShopping();
+          
           }}
         >
           Checkout
