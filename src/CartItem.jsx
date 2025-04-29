@@ -35,8 +35,7 @@ const CartItem = ({ onContinueShopping, total, setTotal }) => {
       );
       setTotal((prev) => prev - 1);
     } else if (item.quantity === 1) {
-      handleRemove(item);
-      setTotal((prev) => prev - 1);
+      handleRemove(item); // This already handles setTotal correctly
     }
   };
 
